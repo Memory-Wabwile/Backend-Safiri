@@ -8,7 +8,7 @@ urlpatterns = [
     #Registration Urls
     path('registration/driver/', DriverRegistrationView.as_view(), name='driver'),
     path('registration/customer/', CustomerRegistrationView.as_view(), name='register-customer'),
-     path('login/', views.LoginView.as_view(), name='login'),
+     path('registration/login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
 ]
 

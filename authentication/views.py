@@ -3,7 +3,6 @@ from rest_auth.registration.views import RegisterView
 from authentication.serializers import (
     DriverCustomRegistrationSerializer, CustomerCustomRegistrationSerializer,
      LoginSerializer
-     
     )
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
