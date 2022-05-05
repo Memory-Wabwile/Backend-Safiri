@@ -15,17 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from xml.etree.ElementInclude import include
+#from xml.etree.ElementInclude import include
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('authentication.urls')),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('api-token-auth/', obtain_auth_token),  
-    path('driver/',include('driver.urls')),
-    path('customers/',include('customers.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    # path('rest-auth/', include('rest_auth.urls')),
+    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    # path('api-token-auth/', obtain_auth_token),  
+    # path('driver/',include('driver.urls')),
+    # path('customers/',include('customers.urls')),
     # path('administrator/',include('administrator.urls')),
     # path('mainpage/',include('mainpage.urls'))
 ]

@@ -1,12 +1,18 @@
+from django.conf import settings
 from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework.authtoken.models import Token
-from authentication.models import AbstractUser
+from authentication.models import AbstractUser, Driver
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 
-
 class DriverCustomRegistrationSerializer(RegisterSerializer):
+
+    class Meta:
+        model = settings.AUTH_USER_MODEL
+        fields = ('email', 'username', 'password',
+                  'password2', 'is_driver')
+
    
     def get_cleaned_data(self):
             data = super(DriverCustomRegistrationSerializer, self).get_cleaned_data()
