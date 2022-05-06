@@ -22,13 +22,13 @@ class BusBookingList(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-    def get_single_item_busbooking(self, pk):
-        try:
-            return BusBooking.objects.get(pk=pk)
-        except BusBooking.DoesNotExist:
-            return Http404
+    # def get_single_item_busbooking(self, pk):
+    #     try:
+    #         return BusBooking.objects.get(pk=pk)
+    #     except BusBooking.DoesNotExist:
+    #         return Http404
 
-    def get(self, request, pk, format=None):
-        merch = self.get_merch(pk)
-        serializers = BusBookingSerializer(merch)
-        return Response(serializers.data)
+    # def get(self, request, pk, format=None):
+    #     merch = self.get_merch(pk)
+    #     serializers = BusBookingSerializer(merch)
+    #     return Response(serializers.data)
