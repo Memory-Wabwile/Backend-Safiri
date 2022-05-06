@@ -1,0 +1,1 @@
+web: gunicorn busbooking.wsgi --log-file -
