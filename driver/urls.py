@@ -7,7 +7,6 @@ urlpatterns = [
     path('api/location/', views.LocationList.as_view()),
     path('api/bus/', views.BusList.as_view()),
     path('api/schedule/', views.ScheduleList.as_view()),
-    path('api/booking/', views.BookingList.as_view()),
     path('api/vehicle_owner/', views.Vehicle_ownerList.as_view()),
 ]
 

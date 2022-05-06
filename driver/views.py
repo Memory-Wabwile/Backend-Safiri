@@ -4,9 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import  Category, Location, Bus, Schedule
-from customers.models import Booking
 from .serializer import CategorySerializer, LocationSerializer, BusSerializer, ScheduleSerializer,Vehicle_ownerSerializer
-from customers.serializer import BookingSerializer, BusBookingSerializer
 from .permissions import IsAdminOrReadOnly
 from .decorators import allowed_users
 
@@ -70,22 +68,7 @@ class ScheduleList(APIView):
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BookingList(APIView):
-    def get(self, request, format=None):
-        all_booking = Booking.objects.all()
-        serializers = BookingSerializer(all_booking, many=True)
-        return Response(serializers.data)
 
-    def get_single_item_booking(self, pk):
-        try:
-            return Booking.objects.get(pk=pk)
-        except Booking.DoesNotExist:
-            return Http404
-
-    def get(self, request, pk, format=None):
-        merch = self.get_merch(pk)
-        serializers = BookingSerializer(merch)
-        return Response(serializers.data)
 
 class Vehicle_ownerList(APIView):
     def get(self, request, format=None):

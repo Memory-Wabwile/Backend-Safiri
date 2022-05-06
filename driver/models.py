@@ -71,7 +71,7 @@ class Schedule(models.Model):
 
 class Vehicle_owner(models.Model):
     owner_name= models.CharField(max_length=100)
-    bus = models.OneToOneField(Bus, on_delete=models.CASCADE)
+    bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
     routes = models.CharField(max_length=100)
     status = models.CharField(max_length=2, choices=(('1','Active'),('2','Inactive')))
     vehicle_status= models.CharField(max_length=2, choices=(('1','Fully Serviced'),('2','Service Pending')))

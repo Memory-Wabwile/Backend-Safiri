@@ -1,8 +1,7 @@
 from django.contrib import admin
-from customers.models import Booking, BusBooking
+from customers.models import BusBooking
 
 # Register your models here.
 
-admin.site.register(Booking)
 admin.site.register(BusBooking)
 

@@ -1,10 +1,5 @@
 from rest_framework import serializers
-from .models import Booking, BusBooking
-
-class BookingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Booking
-        fields = '__all__'
+from .models import BusBooking
 
 class BusBookingSerializer(serializers.ModelSerializer):
     class Meta:
