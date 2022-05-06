@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import  Category, Location, Bus, Schedule
 from customers.models import Booking
-from .serializer import CategorySerializer, LocationSerializer, BusSerializer, ScheduleSerializer
-from customers.serializer import BookingSerializer
+from .serializer import CategorySerializer, LocationSerializer, BusSerializer, ScheduleSerializer,Vehicle_ownerSerializer
+from customers.serializer import BookingSerializer, BusBookingSerializer
 from .permissions import IsAdminOrReadOnly
 from .decorators import allowed_users
 
@@ -86,3 +86,18 @@ class BookingList(APIView):
         merch = self.get_merch(pk)
         serializers = BookingSerializer(merch)
         return Response(serializers.data)
+
+class Vehicle_ownerList(APIView):
+    def get(self, request, format=None):
+        all_schedule = Schedule.objects.all()
+        serializers = Vehicle_ownerSerializer(all_schedule, many=True)
+        return Response(serializers.data)
+
+    @allowed_users(allowed_roles=['driver','admin'])
+    def post(self, request, format=None):
+        serializers = Vehicle_ownerSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        

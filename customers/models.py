@@ -2,8 +2,9 @@ from unicodedata import category
 from django.db import models, router
 from django.utils import timezone
 from django.db.models import Sum
+from django.contrib.auth.models import User
 
-from driver.models import Schedule
+from driver.models import Bus, Schedule
 
 
 class Booking(models.Model):
@@ -41,17 +42,25 @@ class Booking(models.Model):
 class BusBooking(models.Model):
     user_name=models.CharField(max_length=100)
     phone_no=models.IntegerField(default=+254-700-000-000)
-    user_id=models.IntegerField(default=0)
     departure_point = models.CharField(max_length=100)
-    pick_up_station=models.CharField(max_length=100,default='Home station')
     destination=models.CharField(max_length=30)
     date=models.DateField()
     price=models.IntegerField()
     time=models.TimeField()
     no_of_seats=models.IntegerField(default=0)
-    bus_name=models.CharField(max_length=20)
-    bus_id=models.IntegerField()
-    seat_numbers=models.CharField(max_length=100, default='')
+    bus_id=models.ForeignKey(Bus,on_delete=models.CASCADE, related_name="bus_id")
 
     def __str__(self):
         return str(self.date)
+    
+    @classmethod
+    def add_busbooking(self):
+        self.save()
+
+    @classmethod
+    def update_busbooking(cls, id):
+        cls.objects.filter(id=id).update()
+    
+    @classmethod
+    def delete_busbooking(cls, id):
+        cls.objects.filter(id=id).delete()

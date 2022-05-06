@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.views import APIView
 from .models import Booking, BusBooking
 from .serializer import BookingSerializer, BusBookingSerializer
@@ -13,6 +14,13 @@ class BusBookingList(APIView):
         serializers = BusBookingSerializer(all_booking, many=True)
         return Response(serializers.data)
 
+    def post(self, request, format=None):
+        serializers = BusBookingSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
     def get_single_item_busbooking(self, pk):
         try:
