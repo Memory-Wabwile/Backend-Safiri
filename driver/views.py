@@ -7,8 +7,8 @@ from .models import  Category, Location, Bus, Schedule
 from customers.models import Booking
 from .serializer import CategorySerializer, LocationSerializer, BusSerializer, ScheduleSerializer,Vehicle_ownerSerializer
 from customers.serializer import BookingSerializer, BusBookingSerializer
-from .permissions import IsAdminOrReadOnly
-from .decorators import allowed_users
+# from .permissions import IsAdminOrReadOnly
+# from .decorators import allowed_users
 
 # Create your views here.
 
@@ -19,7 +19,7 @@ class CategoryList(APIView):
         serializers = CategorySerializer(all_category, many=True)
         return Response(serializers.data)
 
-    @allowed_users(allowed_roles=['driver','admin'])
+    # @allowed_users(allowed_roles=['driver','admin'])
     def post(self, request, format=None):
         serializers = CategorySerializer(data=request.data)
         if serializers.is_valid():
@@ -33,7 +33,7 @@ class LocationList(APIView):
         serializers = LocationSerializer(all_location, many=True)
         return Response(serializers.data)
 
-    @allowed_users(allowed_roles=['driver','admin'])
+    # @allowed_users(allowed_roles=['driver','admin'])
     def post(self, request, format=None):
         serializers = LocationSerializer(data=request.data)
         if serializers.is_valid():
@@ -47,7 +47,7 @@ class BusList(APIView):
         serializers = BusSerializer(all_bus, many=True)
         return Response(serializers.data)
 
-    @allowed_users(allowed_roles=['driver','admin'])
+    # @allowed_users(allowed_roles=['driver','admin'])
     def post(self, request, format=None):
         serializers = BusSerializer(data=request.data)
         if serializers.is_valid():
@@ -62,7 +62,7 @@ class ScheduleList(APIView):
         serializers = ScheduleSerializer(all_schedule, many=True)
         return Response(serializers.data)
 
-    @allowed_users(allowed_roles=['driver','admin'])
+    # @allowed_users(allowed_roles=['driver','admin'])
     def post(self, request, format=None):
         serializers = ScheduleSerializer(data=request.data)
         if serializers.is_valid():
@@ -93,7 +93,7 @@ class Vehicle_ownerList(APIView):
         serializers = Vehicle_ownerSerializer(all_schedule, many=True)
         return Response(serializers.data)
 
-    @allowed_users(allowed_roles=['driver','admin'])
+    # @allowed_users(allowed_roles=['driver','admin'])
     def post(self, request, format=None):
         serializers = Vehicle_ownerSerializer(data=request.data)
         if serializers.is_valid():
