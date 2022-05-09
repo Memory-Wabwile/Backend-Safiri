@@ -14,6 +14,9 @@ from pathlib import Path
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -203,3 +206,8 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS =True
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+cloudinary.config( 
+  cloud_name = "dplbydhjc", 
+  api_key = "298527427399494", 
+  api_secret = "r0YGmGZk-CKRICPCobLacI8Fl1I" 
+)

@@ -3,6 +3,8 @@ from unicodedata import category
 from django.db import models, router
 from django.utils import timezone
 from django.db.models import Sum
+from cloudinary.models import CloudinaryField
+
 
 # Create your models here.
 
@@ -28,10 +30,12 @@ class Location(models.Model):
 
 class Bus(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE, blank= True, null = True)
+    bus_image = CloudinaryField('image')
     bus_number = models.CharField(max_length=150)
     route = models.CharField(max_length=100)
     seats = models.FloatField(max_length=5, default=0)
     cost_per_seat = models.IntegerField()
+
     # driver = models.OneToOneField(Driver, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=(('1','Active'),('2','Inactive')), default=1)
     date_created = models.DateTimeField(default=timezone.now)
