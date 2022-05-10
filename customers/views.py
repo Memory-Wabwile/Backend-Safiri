@@ -11,7 +11,7 @@ from .decorators import allowed_users
 
 # Create your views here.
 
-@allowed_users(allowed_roles=['driver','admin'])
+# @allowed_users(allowed_roles=['driver','admin', 'customer'])
 class BusBookingList(APIView):
     def get(self, request, format=None):
         all_booking = BusBooking.objects.all()
