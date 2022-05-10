@@ -3,45 +3,45 @@ from django.db import models, router
 from django.utils import timezone
 from django.db.models import Sum
 from django.contrib.auth.models import User
+from django.conf import settings
+
+from driver.models import Bus
 
 
-from driver.models import Bus, Schedule
+# class Booking(models.Model):
+#     code = models.CharField(max_length=100)
+#     name = models.CharField(max_length=250)
+#     schedule = models.ForeignKey(Schedule,on_delete=models.CASCADE)
+#     seats = models.IntegerField()
+#     status = models.CharField(max_length=2, choices=(('1','Pending'),('2','Paid')), default=1)
+#     date_created = models.DateTimeField(default=timezone.now)
+#     date_updated = models.DateTimeField(auto_now=True)
 
+#     def __str__(self):
+#         return str(self.code + ' - ' + self.name)
 
-class Booking(models.Model):
-    code = models.CharField(max_length=100)
-    name = models.CharField(max_length=250)
-    schedule = models.ForeignKey(Schedule,on_delete=models.CASCADE)
-    seats = models.IntegerField()
-    status = models.CharField(max_length=2, choices=(('1','Pending'),('2','Paid')), default=1)
-    date_created = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField(auto_now=True)
+#     def total_payable(self):
+#         return self.seats * self.schedule.fare
 
-    def __str__(self):
-        return str(self.code + ' - ' + self.name)
+#     def count_available(self):
+#         booked = Booking.objects.filter(schedule=self).aggregate(Sum('seats'))['seats__sum']
+#         return self.bus.seats - booked
 
-    def total_payable(self):
-        return self.seats * self.schedule.fare
+#     @classmethod
+#     def update_booking(cls, id):
+#         cls.objects.filter(id=id).update()
 
-    def count_available(self):
-        booked = Booking.objects.filter(schedule=self).aggregate(Sum('seats'))['seats__sum']
-        return self.bus.seats - booked
+#     @classmethod
+#     def save_bus(self):
+#         self.save()
 
-    @classmethod
-    def update_booking(cls, id):
-        cls.objects.filter(id=id).update()
-
-    @classmethod
-    def save_bus(self):
-        self.save()
-
-    @classmethod
-    def delete_bus(cls, id):
-        cls.objects.filter(id=id).delete()
+#     @classmethod
+#     def delete_bus(cls, id):
+#         cls.objects.filter(id=id).delete()
 
 
 class BusBooking(models.Model):
-    user_name=models.CharField(max_length=100)
+    user_name= models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     phone_no=models.IntegerField(default=+254-700-000-000)
     departure_point = models.CharField(max_length=100)
     destination=models.CharField(max_length=30)

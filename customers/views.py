@@ -1,13 +1,17 @@
 from django.http import Http404
 from django.shortcuts import render
+
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from .models import Booking, BusBooking
-from .serializer import BookingSerializer, BusBookingSerializer
+from .models import  BusBooking
+from .serializer import  BusBookingSerializer
+from .decorators import allowed_users
+
 
 # Create your views here.
 
+@allowed_users(allowed_roles=['driver','admin'])
 class BusBookingList(APIView):
     def get(self, request, format=None):
         all_booking = BusBooking.objects.all()
