@@ -13,7 +13,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import User, Driver, Customer
 
 
-
+def index(request):
+    return render (request, 'index.html')
 #create your views here
 class DriverRegistrationView(RegisterView):
     serializer_class = DriverCustomRegistrationSerializer
@@ -52,6 +53,7 @@ class LoginView(APIView):
 
             data['token'] = token.key
             data['User_role'] = user_role
+            data['id'] = user.id
 
         else:
             data = serializer.errors
