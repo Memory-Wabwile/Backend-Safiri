@@ -12,9 +12,13 @@ from .models import  Bus
 #         fields = '__all__'
 
 class BusSerializer(serializers.ModelSerializer):
+    bus_image = serializers.SerializerMethodField('get_image_url')
     class Meta:
         model = Bus
         fields = '__all__'
+        
+    def get_image_url(self, obj):
+        return obj.bus_image.url
 
 # class ScheduleSerializer(serializers.ModelSerializer):
 #     class Meta:
